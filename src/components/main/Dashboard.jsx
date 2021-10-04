@@ -19,11 +19,11 @@ function Dashboard() {
     const { user } = useUserContext()
 
     return (
-        <Box sx={{height: '100vh', display: 'flex', flexDirection: 'column'}} >
+        <Box sx={{ display: 'flex', flexDirection: 'column'}} >
 
             <AppBar elevation={0} position='static' >
                 <Toolbar sx={{display: 'flex', flexFlow: 'row', justifyContent: 'space-between'}}  >
-                    <Typography>
+                    <Typography fontSize={30} >
 
                         Hello, {user?.fullName}
                     </Typography>
