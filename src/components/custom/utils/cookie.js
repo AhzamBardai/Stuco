@@ -2,7 +2,7 @@
 export const cookie = {
     getCookieData : (name) => document.cookie.split(';').map(item => item.trim().split('=')).filter(([key, value]) => key === name)[0][1],
     checkCookie : (key) => document.cookie.includes(key),
-    setCookie : (name, value, expiry, path) => document.cookie = `${name}=${value};expires=${expiry};path=${path ? path : '/'};Secure;${process.env.NODE_ENV === 'production' ? 'HttpOnly;' : null}`,
+    setCookie : (name, value, expiry, path) => document.cookie = `${name}=${value};expires=${expiry};path=${path ? path : '/'};Secure;`,
     deleteCookie: () => 'hello',
     setDate : (type) => {
         switch (type) {
