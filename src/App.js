@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import User from './components/user/User.jsx'
 import LoginWrapper from './components/Auth/LoginWrapper';
-import Signup from './components/Auth/Signup';
 import Dashboard from './components/main/Dashboard.jsx';
 import { cookie } from './components/custom/utils/cookie';
 

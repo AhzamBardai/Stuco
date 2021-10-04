@@ -1,7 +1,6 @@
 import React from 'react';
-import { Typography, Fade, Backdrop, Modal, IconButton, } from '@mui/material';
+import { Typography, Fade, Backdrop, Modal, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
   position: 'absolute',
@@ -18,7 +17,7 @@ const style = {
   }
 };
 
-export default function MemberModal({ open, member, handleClose }) {
+export default function ShiftInfoModal({ open, handleClose, shift }) {
 
   return (
     <div>
@@ -34,26 +33,23 @@ export default function MemberModal({ open, member, handleClose }) {
         <Fade in={open}>
           <Box sx={style}>
 
-              <IconButton sx={{float: 'right' , m: 0}} onClick={() => handleClose()} >
-                  <CloseIcon />
-              </IconButton>
-
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              { member && member.fullName}
+              { shift && shift.title}
+            </Typography>
+            {console.log(shift)}
+            {/* <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Start - { shift && shift.start}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              email - { member && member.email}
+              End - { shift && shift.end}
+            </Typography> */}
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Assigned To - { shift && shift.extendedProps.member}
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              contact - { member && member.contact}
+              Assigned By - { shift && shift.extendedProps.assignedBy}
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              position - { member && member.position}
-            </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Admin - { member && member.isAdmin ? 'Yes' : 'No'}
-            </Typography>
-            
+                        
           </Box>
         </Fade>
       </Modal>

@@ -6,6 +6,8 @@ import useUserContext from '../custom/contexts/useUserContext'
 import CloseIcon from '@mui/icons-material/Close';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const style = {
   height: '500px',
@@ -75,6 +77,17 @@ export default function AnnouncementModal({ open, handleClose, edit, editAnn }) 
     const handlePopClick = (event) => setAnchorEl(event.currentTarget); 
     const handlePopClose = () => setAnchorEl(null);
     
+    const handleDelete = (id) => {
+      axios.delete(url + `announcements/${id}`)
+        .then(() => {
+          axios.get(url + 'announcements/')
+          .then(res => {
+            setAnn(res.data)
+          })
+          .catch(() => window.alert('ann axios error'))
+      })
+      handleClose()
+  }
 
   return (
     <div>
@@ -159,10 +172,12 @@ export default function AnnouncementModal({ open, handleClose, edit, editAnn }) 
                   onChange={e => setNewAnn({...newAnn, file: e.currentTarget.value})}
                   label='File'
                 /> */}
-                  
-                <Button variant='contained' type='submit' onClick={handleClose} >
-                  {edit ? 'Update' : 'Create'}
-                </Button>
+                  <Stack direction='row'>
+                    <Button sx={{flexGrow: 1}} variant='contained' type='submit' onClick={handleClose} >
+                      {edit ? 'Update' : 'Create'}
+                    </Button>
+                    { edit && user && user.isAdmin && <IconButton onClick={() => handleDelete( editAnn._id )} > <DeleteIcon /> </IconButton>}
+                </Stack>
 
               </Stack>
             </form>

@@ -15,6 +15,8 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { Paper } from '@mui/material'
 import axios from 'axios'
 import useUserContext from '../custom/contexts/useUserContext'
+import ShiftModal from './ShiftModal'
+import ShiftInfoModal from './InfoModal'
 
 export default function Shifts() {
 
@@ -43,37 +45,63 @@ export default function Shifts() {
     }
   ]
 
-  const [shifts, setShifts] = useState(INITIAL_EVENTS)
   const [modal, setModal] = useState(false)
+  const handleClose = () => setModal(false)
+  const [shiftArr, setShiftArr] = useState()
   const [edit, setEdit] = useState()
-  const { user, url } = useState()  
+  const { user, url, shifts, setShifts } = useUserContext()
+  
+  const [infoOpen, setInfoOpen] = useState(false)
+  const [info, setInfo] = useState()
+  const handleInfoClose = () => setInfoOpen(false)
 
-  function handleDateSelect(selectInfo) {
-    let title = prompt('Please enter a new title for your event')
-    let calendarApi = selectInfo.view.calendar
+  useEffect(() => {
 
-    calendarApi.unselect() // clear date selection
+    getData()
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+  }, [setShifts, url])
+
+  function getData() {
+    axios.get(url + 'shifts/')
+      .then(res => {
+        setShifts(res.data)
+        const arr = res.data.map((item, ind) => {
+           return {...item.shiftOption, id: ind+1, member: item.assignedTo, assignedBy: item.assignedBy }
+        })
+        setShiftArr(arr)
+        console.log(arr)
       })
-    }
   }
 
-  function handleEventClick  (clickInfo) {
-    console.log(clickInfo.event.start.toISOString())
-    console.log(clickInfo.event.end.toISOString())
+  function handleDateSelect(selectInfo) {
+    console.log(selectInfo)
+    setEdit(selectInfo)
+    setModal(true)
+    // let title = prompt(selectInfo.view.calendar)
+    // let calendarApi = selectInfo.view.calendar
 
+
+    // calendarApi.unselect() // clear date selection
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   })
+    // }
+  }
+
+  function handleEventClick(clickInfo) {
+    setInfo(clickInfo.event)
+    setInfoOpen(true)
+    console.log(clickInfo.event.end)
   }
 
   function handleEvents(events)  {
-    console.log('hello')
-    setShifts(events)
+      setShifts(events)
   }
 
   function renderEventContent(eventInfo) {
@@ -86,7 +114,7 @@ export default function Shifts() {
 
   const newShift = () => {
     if(user && user.isAdmin){
-      axios.post(url + 'shifts/new', )
+      axios.post(url + 'shifts/new', {  })
 
     }
     else{
@@ -103,7 +131,7 @@ export default function Shifts() {
           customButtons={{
               newButton: {
                 text: "New Shift",
-                click: () => window.alert("nice"),
+                click: () =>  user && user.isAdmin ? setModal(true) : null,
               },
           }}
           headerToolbar={{
@@ -117,19 +145,21 @@ export default function Shifts() {
           selectMirror={true}
           dayMaxEvents={false}
           weekends={true}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          events={shiftArr} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
           /* you can update a remote database when these fire:
           eventChange={function(){}}
-          eventRemove={function(){}}
+          eventAdd={() => setModal(true)}
           */
-          eventAdd={function(hell){console.log(hell)}}
+         eventRemove={function(hell){console.log(hell)}}
           height='70vh'
           slotDuration='01:00'
         />
+        <ShiftModal open={modal} handleClose={handleClose} getData={getData} />
+        <ShiftInfoModal open={infoOpen} handleClose={handleInfoClose} shift={info} />
       </Paper>
     </div>
   )

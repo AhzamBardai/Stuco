@@ -24,11 +24,12 @@ export default function MemberList() {
   const [rows, setRows] = useState()
   const [member, setMember] = useState()
   const [filter, setFilter] = useState('')
-  const { user, url } = useUserContext()
+  const { user, url, setUsers } = useUserContext()
 
   useEffect(() => {
     axios.get(url + `users/${user._id}`)
       .then(res => {
+          setUsers(res.data)
           const rowData = res.data.map((item, ind) => {
             return {id: ind + 1, fullName: item.fullName, email: item.email, position: item.position , isAdmin: item.isAdmin, isApproved: item.isApproved, contact: item.contact, memberId: item._id }
           })

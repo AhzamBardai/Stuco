@@ -6,11 +6,11 @@ import axios from 'axios'
 import useUserContext from '../custom/contexts/useUserContext'
 import AnnouncementModal from './NewAnnounceModal';
 import moment from 'moment';
-import { useTheme } from '@mui/system';
+// import { useTheme } from '@mui/system';
 
 
 function Announcements() {
-    const theme = useTheme()
+    // const theme = useTheme()
     // new ann modal
     const [open, setOpen] = useState(false)
     const handleClose = () => setOpen(false)
@@ -31,11 +31,12 @@ function Announcements() {
         axios.get(url + 'announcements/')
             .then(res => {
                 setAnn(res.data)
-                console.log(res.data)
             })
             .catch(() => window.alert('ann axios error'))
     }, [setAnn, url])
 
+
+    
 
     return (
         <Paper elevation={6} sx={{  height: '75vh',width: { sm: '500px', xs: '100%'}, pb: 2, overflowY: 'scroll', flexGrow: 1, background: 'whitesmoke'}} >
@@ -48,13 +49,16 @@ function Announcements() {
 
                 { ann && ann.map(item => {
                     return (
-                        <Card sx={{m: '20px 25px', p: 1}} elevation={3} onClick={() => handleEdit(item)} >
+                        <Card sx={{m: '20px 25px', p: 1, cursor: 'pointer'}} elevation={3} onClick={() => handleEdit(item)} >
                             <Stack direction='row' sx={{display: 'flex', alignItems: 'center'}}>
                                 <Avatar sx={{display: 'inline-block', mr: 1}} >{item.authorImage !== '' ? item.authorImage : null }</Avatar>
                                 <Typography variant='body1'  >
-                                    {item.author} <span  style={{color:'gray', fontSize:'10px'}}> ~at, {moment(item.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a")} </span>
+                                    {item.author} <span  style={{color:'gray', fontSize:'10px'}}> ~at, {moment(item.createdAt).format("dddd, MMMM Do YYYY, h:mm a")} </span>
                                 </Typography>
+
+
                             </Stack>
+                            <Divider sx={{my: 1}} ></Divider>
                             <Stack >
                             
                             <Typography>

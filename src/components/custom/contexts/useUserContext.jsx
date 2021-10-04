@@ -11,6 +11,8 @@ export const UserContextProvider = ({ children }) => {
     const [accessToken, setAccessToken]  = useState()
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [ann, setAnn] = useState()
+    const [users, setUsers] = useState()
+    const [shifts, setShifts] = useState()
     
     // Make the context object:
     const Provider = {
@@ -25,6 +27,10 @@ export const UserContextProvider = ({ children }) => {
       setIsLoggedIn,
       ann,
       setAnn,
+      users,
+      setUsers,
+      shifts,
+      setShifts
     };
     
     // pass the value in provider and return
