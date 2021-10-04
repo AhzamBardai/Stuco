@@ -40,12 +40,11 @@ export default function Login() {
     e.preventDefault()
     setPasswordError(false)
     setUsernameError(false)
-        isUsername ? username === '' && setUsernameError(true) : email === '' && setEmailError(true)
+    isUsername ? username === '' && setUsernameError(true) : email === '' && setEmailError(true)
     password === '' && setPasswordError(true)
     if(password !== '' &&  (isUsername ? username !== '' : email !== '')){
         // const url = "http://localhost:4000/api/users"
         // axios.post(url+'login', )
-        console.log(username, password)
         getData()
     }
     }
@@ -54,7 +53,6 @@ export default function Login() {
     const history = useHistory()
     const getData = () => {
     const user = isUsername ? { username: username, password: password } : { email: email, password: password }
-    console.log(user)
     axios.post(url + 'users/login', user)
         .then(res => {
             if(res.data?.message) window.alert(res.data.message)

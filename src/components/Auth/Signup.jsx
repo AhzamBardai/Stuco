@@ -84,6 +84,7 @@ export default function Signup() {
     
     
     useEffect(() => {
+        console.log('hello')
         const empty = () => fullName === '' && username === '' && email === '' && password === ''
         if( !empty() && submit) {
             const obj = {fullName: fullName, username: username, email: email, password: password,}
