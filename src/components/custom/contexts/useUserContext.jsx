@@ -5,7 +5,7 @@ const UserContext = createContext({});
 export const UserContextProvider = ({ children }) => {
     
     // global states
-    const url = 'http://localhost:4000/api/'
+    const url = process.env.NODE_ENV === 'production' ? 'https://plano-stuco.herokuapp.com/api/' : 'http://localhost:4000/api/'
     const [user, setUser] = useState()
     const [token, setToken] =useState()
     const [accessToken, setAccessToken]  = useState()
