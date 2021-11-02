@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Fade, Backdrop, Modal, IconButton, } from '@mui/material';
 import { Box } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@mui/material/styles';
 
 const style = {
   position: 'absolute',
@@ -19,6 +20,9 @@ const style = {
 };
 
 export default function MemberModal({ open, member, handleClose }) {
+
+  const theme = useTheme()
+  const textColor = theme.palette.text.primary
 
   return (
     <div>
@@ -38,19 +42,19 @@ export default function MemberModal({ open, member, handleClose }) {
                   <CloseIcon />
               </IconButton>
 
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography  color={textColor} variant="h6" component="h2">
               { member && member.fullName}
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography  color={textColor}  sx={{ mt: 2 }}>
               email - { member && member.email}
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              contact - { member && member.contact}
+            <Typography  color={textColor}  sx={{ mt: 2 }}>
+              contact - { member && (member.contact || 'None') }
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography  color={textColor}  sx={{ mt: 2 }}>
               position - { member && member.position}
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+            <Typography  color={textColor}  sx={{ mt: 2 }}>
               Admin - { member && member.isAdmin ? 'Yes' : 'No'}
             </Typography>
             

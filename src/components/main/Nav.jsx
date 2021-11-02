@@ -28,7 +28,7 @@ function Nav() {
     return (
       <Box sx={{ width: '100%', typography: 'h1',}}>
         <TabContext value={value}>
-        <AppBar  color='transparent' position='static' elevation={5} >
+        <AppBar  color='default' position='static' elevation={5} >
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} variant="scrollable" scrollButtons="auto">
               <Tab label="Dash" value="1" className={classes.tab} sx={{ml: 3, padding: '20px 40px'}} />

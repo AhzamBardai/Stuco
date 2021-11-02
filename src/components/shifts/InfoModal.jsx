@@ -36,7 +36,7 @@ export default function ShiftInfoModal({ open, handleClose, shift }) {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               { shift && shift.title}
             </Typography>
-            {console.log(shift)}
+            {/* {console.log(shift)} */}
             {/* <Typography id="transition-modal-description" sx={{ mt: 2 }}>
               Start - { shift && shift.start}
             </Typography>

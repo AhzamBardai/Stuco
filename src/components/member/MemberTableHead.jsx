@@ -77,12 +77,13 @@ export default function MemberTableHead({ order, orderBy, handleRequestSort }) {
       ];
       
     const theme = useTheme()
+    // const header = theme.palette.mode === 'dark' ? theme.palette.primary.dark : theme.palette.
     const handleSort = (property) => (event) => {
       handleRequestSort(event, property);
     };
   
     return (
-      <TableHead sx={{background: theme.palette.primary.light}} >
+      <TableHead sx={{background: theme.palette.secondary.light}} >
         <TableRow>
           {headCells.map((headCell) => (
             <TableCell
@@ -112,11 +113,9 @@ export default function MemberTableHead({ order, orderBy, handleRequestSort }) {
   }
   
   MemberTableHead.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-    onRequestSort: PropTypes.func.isRequired,
-    onSelectAllClick: PropTypes.func.isRequired,
+    
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
-    rowCount: PropTypes.number.isRequired,
+  
   };
   

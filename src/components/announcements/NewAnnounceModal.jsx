@@ -28,7 +28,7 @@ const style = {
 
 export default function AnnouncementModal({ open, handleClose, edit, editAnn }) {
 
-  const { user, url, setAnn } = useUserContext()
+  const { user, url, setAnn, textVariant } = useUserContext()
   const [newAnn, setNewAnn] = useState({ title: '', image: '', file: '', body: '' })
   const [toEdit, setToEdit] = useState()
 
@@ -47,11 +47,9 @@ export default function AnnouncementModal({ open, handleClose, edit, editAnn }) 
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(newAnn)
     if(edit) {
       axios.put(url + `announcements/${toEdit._id}`, {...toEdit, userId: user._id})
       .then(res => {
-        console.log(res.data)
         axios.get(url + 'announcements/')
         .then(res => {
           setAnn(res.data)
@@ -117,7 +115,7 @@ export default function AnnouncementModal({ open, handleClose, edit, editAnn }) 
                 </Stack>
                 
                 <TextField 
-                  variant='outlined'
+                  variant={textVariant}
                   required
                   fullWidth
                   rows={3}
@@ -149,7 +147,7 @@ export default function AnnouncementModal({ open, handleClose, edit, editAnn }) 
 
                 <Stack direction='row' sx={{display: 'flex', alignItems: 'baseline', justifyContent: 'space-evenly'}} >
                   <TextField 
-                    variant='outlined'
+                    variant={textVariant}
                     fullWidth
                     value={ edit ? toEdit?.image : newAnn.image }
                     onChange={e => edit ? setToEdit({...toEdit, image: e.currentTarget.value}) : setNewAnn({...newAnn, image: e.currentTarget.value})}

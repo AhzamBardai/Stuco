@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useReducer } from "react";
-import { Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, } from "@mui/material";
+import { Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, TextField, } from "@mui/material";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
@@ -35,10 +35,6 @@ const initial = {
     passwordError: false,
     submit: false,
     passVisibility: false
-}
-
-const errorList = {
-    
 }
 
 const signupReducer = (state, action) => {
@@ -78,17 +74,15 @@ export default function Signup() {
     const [state, dispatch] = useReducer(signupReducer, initial)
 
     const { fullName, username, email, password, fullNameError, usernameError, emailError, passwordError, passVisibility, submit, } = state;
-    const { setUser, setAccessToken, setToken, url, setIsLoggedIn }  = useUserContext()
+    const { setUser, setAccessToken, setToken, url, setIsLoggedIn, textVariant }  = useUserContext()
 
     const classes = useStyles();
     
     
     useEffect(() => {
-        console.log('hello')
         const empty = () => fullName === '' && username === '' && email === '' && password === ''
         if( !empty() && submit) {
             const obj = {fullName: fullName, username: username, email: email, password: password,}
-            console.log(obj, submit)
             axios.post(url + 'users/new', obj)
                 .then(res => {
                     if(res.data?.message) window.alert(res.data.message)
@@ -145,6 +139,21 @@ export default function Signup() {
             />
             {fullNameError && <FormHelperText>Please enter your full name. Mininum 7 characters required.  </FormHelperText> }
         </FormControl>
+
+        <TextField 
+            fullWidth
+            variant={textVariant}
+            sx={{m:1}}
+            required
+            label='Full Name'
+            type='text'
+            autoFocus
+            className={classes.field}
+            value={fullName}
+            onChange={(e) => dispatch({ type: 'field', field: 'fullName', payload: e.currentTarget.value })}
+            error={ fullNameError}
+            helperText={fullNameError && 'Please enter your full name. Mininum 7 characters required' }
+        />
 
         <FormControl fullWidth sx={{m:1}} varient='outlined' >
             <InputLabel required >Email</InputLabel>

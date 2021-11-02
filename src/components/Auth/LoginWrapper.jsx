@@ -7,26 +7,26 @@ import { useMediaQuery } from '@mui/material'
 
 function LoginWrapper() {
 
-    const loc = useLocation()
+    const location = useLocation()
     const test = useMediaQuery('(max-height: 680px)')
-    console.log(test)
+
     return (
         <Container sx={{ minWidth:'100%', height: `${ test ? '100%' : '100vh'}`, display:'flex', flexFlow: 'row', justifyContent: 'center', alignItems: 'center', background:'whitesmoke' }}>
-            <Card sx={{ width: 450, m:'50px 20px'}} elevation={8} >
-                <CardContent >
+            <Card sx={{ width: 450, m:'50px 20px',}} elevation={8} >
+                <CardContent sx={{ display: 'flex', flexDirection: 'column' , alignItems: 'center', justifyContent: 'space-evenly'}} >
                     <Typography
                         variant='h2'
                         sx={{m: 2}}
                     >
-                        { loc.pathname.toLowerCase() ==='/login' ? 'Login In' : 'Register' }
+                        { location.pathname.toLowerCase() ==='/signup' ? 'Register' :'Login In' }
                     </Typography>
 
-                    { loc.pathname.toLowerCase() === '/login' 
-                        ? <Typography variant='body2' > New here? <Link href='/signup' >Create an account.</Link> </Typography> 
-                        : <Typography variant='body2' > Already a user? <Link href='/login' >Log in here.</Link> </Typography>
+                    { location.pathname.toLowerCase() === '/signup' 
+                        ? <Typography variant='body2' > Already a user? <Link href='/login' >Log in here.</Link> </Typography>
+                        : <Typography variant='body2' > New here? <Link href='/signup' >Create an account.</Link> </Typography> 
                     }
 
-                    { loc.pathname.toLowerCase() === '/login' ? <Login /> : <Signup />}
+                    { location.pathname.toLowerCase() === '/signup' ? <Signup /> : <Login /> }
 
                 </CardContent>
             </Card>

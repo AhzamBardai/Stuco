@@ -17,6 +17,7 @@ import axios from 'axios'
 import useUserContext from '../custom/contexts/useUserContext'
 import ShiftModal from './ShiftModal'
 import ShiftInfoModal from './InfoModal'
+import SideBar from '../main/SideBar'
 
 export default function Shifts() {
 
@@ -69,12 +70,10 @@ export default function Shifts() {
            return {...item.shiftOption, id: ind+1, member: item.assignedTo, assignedBy: item.assignedBy }
         })
         setShiftArr(arr)
-        console.log(arr)
       })
   }
 
   function handleDateSelect(selectInfo) {
-    console.log(selectInfo)
     setEdit(selectInfo)
     setModal(true)
     // let title = prompt(selectInfo.view.calendar)
@@ -97,7 +96,6 @@ export default function Shifts() {
   function handleEventClick(clickInfo) {
     setInfo(clickInfo.event)
     setInfoOpen(true)
-    console.log(clickInfo.event.end)
   }
 
   function handleEvents(events)  {
@@ -123,7 +121,10 @@ export default function Shifts() {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100%', fontSize: '14px'}} >
+    <div style={{ display: 'flex', flexDirection: 'row' , justifyContent: 'space-evenly', alignItems: 'center', height: '100vh' }} >
+ 
+    <SideBar />
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100%', fontSize: '14px', width: '70%', marginLeft: '10rem'}} >
       <Paper sx={{width: '100%', m: '20px 60px', padding: '2em'}} elevation={6} >
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin, momentPlugin, listPlugin]}
@@ -154,13 +155,14 @@ export default function Shifts() {
           eventChange={function(){}}
           eventAdd={() => setModal(true)}
           */
-         eventRemove={function(hell){console.log(hell)}}
+        //  eventRemove={function(hell){console.log(hell)}}
           height='70vh'
           slotDuration='01:00'
         />
         <ShiftModal open={modal} handleClose={handleClose} getData={getData} />
         <ShiftInfoModal open={infoOpen} handleClose={handleInfoClose} shift={info} />
       </Paper>
+    </div>
     </div>
   )
 }

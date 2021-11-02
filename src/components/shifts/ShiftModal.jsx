@@ -57,7 +57,6 @@ export default function ShiftModal({ open, handleClose, getData }) {
   }, [setUsers, url, user, user._id])
 
   const handleSubmit = (e) => {
-    console.log(selected, userSelected)
     e.preventDefault()
     if(user && users){
       const obj = {shiftOption:{ title: selected.shift , start: selected.startTime, end: selected.endTime }, assignedBy: user, assignedTo: userSelected.fullName}
