@@ -123,17 +123,17 @@ export default function Shifts() {
   return (
     <div style={{ display: 'flex', flexDirection: 'row' , justifyContent: 'space-evenly', alignItems: 'center', height: '100vh' }} >
  
-    <SideBar />
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100%', fontSize: '14px', width: '70%', marginLeft: '10rem'}} >
+    <SideBar>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100%', fontSize: '14px', width: '100%', marginLeft: '10rem'}} >
       <Paper sx={{width: '100%', m: '20px 60px', padding: '2em'}} elevation={6} >
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin, momentPlugin, listPlugin]}
           themeSystem= 'bootstrap'
           customButtons={{
-              newButton: {
-                text: "New Shift",
-                click: () =>  user && user.isAdmin ? setModal(true) : null,
-              },
+            newButton: {
+              text: "New Shift",
+              click: () =>  user && user.isAdmin ? setModal(true) : null,
+            },
           }}
           headerToolbar={{
             right: 'newButton today prev,next',
@@ -155,14 +155,15 @@ export default function Shifts() {
           eventChange={function(){}}
           eventAdd={() => setModal(true)}
           */
-        //  eventRemove={function(hell){console.log(hell)}}
-          height='70vh'
-          slotDuration='01:00'
-        />
+         //  eventRemove={function(hell){console.log(hell)}}
+         height='70vh'
+         slotDuration='01:00'
+         />
         <ShiftModal open={modal} handleClose={handleClose} getData={getData} />
         <ShiftInfoModal open={infoOpen} handleClose={handleInfoClose} shift={info} />
       </Paper>
     </div>
+    </SideBar>  
     </div>
   )
 }

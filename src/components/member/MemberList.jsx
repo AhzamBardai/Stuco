@@ -27,6 +27,7 @@ export default function MemberList() {
   const [member, setMember] = useState()
   const [filter, setFilter] = useState('')
   const { user, url, setUsers } = useUserContext()
+  const xl = useMediaQuery('(min-width: 2000px)')
 
   useEffect(() => {
     if(user){
@@ -65,20 +66,21 @@ export default function MemberList() {
   
   return (
 
-    <div style={{ display: 'flex', flexDirection: 'row' , justifyContent: 'space-around', alignItems: 'center', height: '100vh', backgroundColor: theme.palette.background.default }} >
- 
-    <SideBar />
+    <div style={{ height: '100vh' }} >
 
-    <Paper sx={{width: '65%', ml: 5}} elevation={5}>
+    <SideBar>
+      <Box component='div' sx={{ my: '50px', px: 3, flexgrow: 1, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+
+    <Paper sx={{ mt: '20px', ml: xl ? '7%' : { md: 30, lg: '4%' }, width: { xs: '100%', md: '70%', lg: '80%'}, }} elevation={5}>
       <Stack direction='row' sx={{ flex: '1 1 100%', justifyContent: 'space-evenly', alignItems: 'baseline' }} >
 
           <Typography
           
-            sx={{ fontSize: '30px' , p:3 , pl: { sm: 2 }, pr: { xs: 1, sm: 1 },}}
-            variant="h6"
-            id="tableTitle"
+          sx={{ fontSize: '30px' , p:3 , pl: { sm: 2 }, pr: { xs: 1, sm: 1 },}}
+          variant="h6"
+          id="tableTitle"
             component="div"
-          >
+            >
               Stuco 2021 - 2022
           </Typography>
 
@@ -88,28 +90,28 @@ export default function MemberList() {
           }
       </Stack>
       <TableContainer >
-        <Table size='medium'  >
+        <Table>
 
           <MemberTableHead
             order={order}
             orderBy={orderBy}
             handleRequestSort={handleRequestSort}
             rowCount={rows?.length}
-          />
+            />
           <TableBody>
             { rows && rows.filter(item => filter === '' ? true : checkFilter(item)).sort(getComparator(order, orderBy))
               .map((row, index) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
-
+                
                 return (
                   <TableRow
-                    hover
-                    onClick={() => handleOpen(row.memberId) }
-                    role="checkbox"
+                  hover
+                  onClick={() => handleOpen(row.memberId) }
+                  role="checkbox"
                     tabIndex={-1}
                     key={row.name}
                     sx={{cursor: 'pointer'}}
-                  >
+                    >
                     
                     <TableCell
                       component="th"
@@ -117,7 +119,7 @@ export default function MemberList() {
                       scope="row"
                       padding="none"
                       align='center'
-                    >
+                      >
                       {row.fullName}
                     </TableCell>
                     <TableCell align='center'>{row.position}</TableCell>
@@ -136,6 +138,10 @@ export default function MemberList() {
               <MemberModal open={open} member={member} handleClose={handleClose} />
               <FilterModal open={filterModal} filter={filter} setFilter={setFilter} handleClose={filterModalClose} />
     </Paper>
-  </div>
+
+              </Box>
+    </SideBar>
+
+      </div>
   );
   }

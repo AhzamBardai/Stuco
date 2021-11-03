@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Button, Container, Divider, FormHelperText, Paper, Stack, Switch, TextField, Typography, useMediaQuery, FormControl, MenuItem, InputLabel, Select } from '@mui/material'
+import { Avatar, Button, Container, Divider, FormHelperText, Paper, Stack, Switch, TextField, Typography, FormControl, MenuItem, InputLabel, Select } from '@mui/material'
 import SideBar from '../main/SideBar'
 import axios from 'axios'
 import useUserContext from '../custom/contexts/useUserContext'
@@ -11,6 +11,8 @@ import AuthInfo from './AuthInfo'
 import DeleteUser from './DeleteUser'
 import EditHomeColor from './EditHomeColor'
 import DarkMode from './DarkMode'
+import { Box } from '@mui/system'
+import { useMediaQuery } from '@mui/material';
 
 
 function EditProfile() {
@@ -24,23 +26,24 @@ function EditProfile() {
             flexFlow: 'row',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            height: {landHeight},
+            height: '100%',
             backgroundColor: theme.palette.background.default,
             overflowY: 'scroll',
             paddingBottom: '50px' 
         }
     }
-
+    const xl = useMediaQuery('(min-width: 2000px)')
     // useEffect(() => console.log(theme) ,[])
 
     if(user){
         const { fullName, username, contact, email, image, position, darkMode, createdAt, address } = user
         return (
-            <div style={styles.rootDiv} >
     
-                <SideBar />
-    
-                <Paper elevation={4} sx={{ width: { xs: '100%', sm: '70%', md: '50%'}, mt: '50px' , ml: { md: 10, lg: 6 } }}  >
+                <SideBar>
+
+                <Box sx={{ height: '100%', flexGrow: 1, px: { xs: 3, md: 0} }} >
+                { xl && console.log('hello') }
+                <Paper elevation={4} sx={{ my: '50px' ,  mx: xl ? '15%' : { md: 16, lg: 19 }, width: { xs: '100%', sm: '100%', md: '70%', lg: '80%'}, }}  >
                     <Container sx={{ py: 3 }} >
                         <Stack spacing={3} justifyContent='flex-start' >
 
@@ -89,7 +92,8 @@ function EditProfile() {
                         </Stack>
                     </Container>
                 </Paper>
-            </div>
+                </Box>
+                </SideBar>
         )
 
     }
