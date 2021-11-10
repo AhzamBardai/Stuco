@@ -42,7 +42,7 @@ export default function Login() {
     
     const getData = () => {
     const user = isUsername ? { username: username, password: password } : { email: email, password: password }
-    axios.post(url + 'users/login', user)
+    axios.post(url + 'users/login', user, {withCredentials: true})
     .then(res => {
             if(res.data?.message) window.alert(res.data.message)
             else{

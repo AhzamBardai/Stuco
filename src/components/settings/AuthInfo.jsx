@@ -14,6 +14,13 @@ function AuthInfo() {
     const theme = useTheme()
     const headingColor = theme.palette.mode === 'dark' ? theme.palette.primary.light : theme.palette.primary.dark
     const [edit, setEdit] = useState(false)
+    const [isReadOnly, setIsReadOnly] = useState(true)
+
+    const toggleEdit = (e) => {
+        e.preventDefault()
+        setEdit(!edit)
+        setIsReadOnly(!isReadOnly)
+    }
 
     return (
         <Container>
@@ -23,7 +30,7 @@ function AuthInfo() {
                     <Typography variant='body1' color={headingColor} fontSize={19} >
                         Authorization Details
                     </Typography>
-                    <Switch checked={edit} onChange={() => setEdit(!edit)} ></Switch>
+                    <Switch checked={edit} onChange={toggleEdit} ></Switch>
                 </Stack>
 
 
@@ -33,6 +40,9 @@ function AuthInfo() {
                         size='small'
                         defaultValue={email}
                         sx={{ flexGrow: 1 }}
+                        InputProps={{
+                            readOnly: isReadOnly
+                        }}
                     />
 
                 <Stack direction={{ xs: 'column', lg: 'row' }} spacing={3} >
@@ -43,6 +53,9 @@ function AuthInfo() {
                         size='small'
                         defaultValue={username}
                         sx={{ flexGrow: 1 }}
+                        InputProps={{
+                            readOnly: isReadOnly
+                        }}
                     />
                         
                     <TextField
@@ -51,6 +64,9 @@ function AuthInfo() {
                         variant={textVariant}
                         size='small'
                         sx={{ flexGrow: 1 }}
+                        InputProps={{
+                            readOnly: isReadOnly
+                        }}
                     />
 
                 </Stack>

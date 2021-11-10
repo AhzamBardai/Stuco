@@ -18,6 +18,8 @@ import useUserContext from '../custom/contexts/useUserContext'
 import ShiftModal from './ShiftModal'
 import ShiftInfoModal from './InfoModal'
 import SideBar from '../main/SideBar'
+import { Box } from '@mui/system';
+import { useMediaQuery } from '@mui/material';
 
 export default function Shifts() {
 
@@ -51,6 +53,7 @@ export default function Shifts() {
   const [shiftArr, setShiftArr] = useState()
   const [edit, setEdit] = useState()
   const { user, url, shifts, setShifts } = useUserContext()
+  const xl = useMediaQuery('(min-width: 2000px)')
   
   const [infoOpen, setInfoOpen] = useState(false)
   const [info, setInfo] = useState()
@@ -121,11 +124,11 @@ export default function Shifts() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' , justifyContent: 'space-evenly', alignItems: 'center', height: '100vh' }} >
+    <div style={{ height: '100vh' }} >
  
     <SideBar>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100%', fontSize: '14px', width: '100%', marginLeft: '10rem'}} >
-      <Paper sx={{width: '100%', m: '20px 60px', padding: '2em'}} elevation={6} >
+    <Box component='div' sx={{ my: '50px', px: 3, flexgrow: 1, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+      <Paper sx={{width: { xs: '100%', md: '70%', lg: '80%'}, height: '90vh', mt: '20px', padding: '2em', ml: xl ? '7%' : { md: 30, lg: '4%' } }} elevation={6} >
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin, momentPlugin, listPlugin]}
           themeSystem= 'bootstrap'
@@ -142,7 +145,7 @@ export default function Shifts() {
           }}
           initialView='timeGridWeek'
           editable={true}
-          selectable={true}
+          // selectable={true}
           selectMirror={true}
           dayMaxEvents={false}
           weekends={true}
@@ -156,13 +159,13 @@ export default function Shifts() {
           eventAdd={() => setModal(true)}
           */
          //  eventRemove={function(hell){console.log(hell)}}
-         height='70vh'
+         height='80vh'
          slotDuration='01:00'
          />
         <ShiftModal open={modal} handleClose={handleClose} getData={getData} />
         <ShiftInfoModal open={infoOpen} handleClose={handleInfoClose} shift={info} />
       </Paper>
-    </div>
+    </Box>
     </SideBar>  
     </div>
   )

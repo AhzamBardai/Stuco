@@ -27,7 +27,7 @@ function Announcements() {
         setOpen(true)
     }
 
-    const wid500 = useMediaQuery('(min-width: 500)')
+    const wid500 = useMediaQuery('(min-width: 500px)')
     const { user, url, ann, setAnn } = useUserContext()
 
     useEffect(() => {
@@ -48,21 +48,22 @@ function Announcements() {
 
         <Box  component='div' sx={{ my: '50px', px: 3, flexgrow: 1, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
         
-        <Paper elevation={6} sx={{  height: '75vh', width: { sm: '500px'}, pb: 2, overflowY: 'scroll', bgcolor: theme.palette.background.paper}} >
+        <Paper elevation={6} sx={{  height: '90vh', ml: { md: 9, lg: '4%' }, width: { xs: '100%', md: '80%'}, pb: 2, overflowY: 'scroll', bgcolor: theme.palette.background.paper}} >
                 <Card elevation={4} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }} >
-                    <Typography variant='h4' sx={{flexGrow: 1}} >
+                    <Typography variant='h4' sx={{flexGrow: 1, textAlign: 'center'}} >
                         Announcements
                     </Typography>
-                    {(user && !user.isAdmin) ? null : wid500  ? <IconButton onClick={() => setOpen(true)} > <AddIcon /> </IconButton> : <Button onClick={() => setOpen(true)} >New <AddIcon fontSize='small' /> </Button> }
+                    {console.log(wid500)}
+                    {(user && !user.isAdmin) ? null : <Button sx={{ fontSize: '17px' }} onClick={() => setOpen(true)}  > { wid500 ? 'New' : ''} <AddIcon /> </Button> }
                 </Card>
 
                 { ann && ann.map((item, ind) => {
                     return (
-                        <Card key={ind + 1} sx={{m: '20px 25px', p: 1, cursor: 'pointer'}} elevation={3} onClick={() => handleEdit(item)} >
+                        <Card key={ind + 1} sx={{m: { xs: 2 , md: '20px 25px'}, p: 1, cursor: 'pointer'}} elevation={3} onClick={() => handleEdit(item)} >
                             <Stack direction='row' sx={{display: 'flex', alignItems: 'center'}}>
                                 <Avatar sx={{ mr: 1}} >{item.authorImage !== '' ? item.authorImage : null }</Avatar>
                                 <Typography variant='body1' >
-                                    {item.author} <span  style={{color:'gray', fontSize:'10px'}}> ~{moment(item.createdAt).format("dddd, MMMM Do YYYY, h:mm a")} </span>
+                                    {item.author} <span  style={{color:'gray', fontSize:'10px'}}> ~{ wid500 ? moment(item.createdAt).format("dddd, MMMM Do YYYY, h:mm a") : moment(item.createdAt).format("MMM Do YYYY, hh:mm a")} </span>
                                 </Typography>
 
 

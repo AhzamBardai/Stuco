@@ -71,7 +71,7 @@ export default function MemberList() {
     <SideBar>
       <Box component='div' sx={{ my: '50px', px: 3, flexgrow: 1, width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
 
-    <Paper sx={{ mt: '20px', ml: xl ? '7%' : { md: 30, lg: '4%' }, width: { xs: '100%', md: '70%', lg: '80%'}, }} elevation={5}>
+    <Paper sx={{ height: '90vh', mt: '20px', ml: xl ? '7%' : { md: 30, lg: '4%' }, width: { xs: '100%', md: '70%', lg: '80%'}, }} elevation={5}>
       <Stack direction='row' sx={{ flex: '1 1 100%', justifyContent: 'space-evenly', alignItems: 'baseline' }} >
 
           <Typography

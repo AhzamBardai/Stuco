@@ -54,7 +54,7 @@ export default function ShiftModal({ open, handleClose, getData }) {
         })
 
     }
-  }, [setUsers, url, user, user._id])
+  }, [setUsers, url, user, user?._id])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -110,7 +110,7 @@ export default function ShiftModal({ open, handleClose, getData }) {
                     onChange={(e) => setSelected(e.target.value)}
                   >
                     {shiftOptions.map((item, ind) => {
-                      return (<MenuItem value={item} > {item.shift} </MenuItem>)
+                      return (<MenuItem key={item.shift} value={item} > {item.shift} </MenuItem>)
                     })}
                   </Select>
                 </FormControl>

@@ -67,7 +67,7 @@ export default function SideBar({ children }) {
                         return (
                             
                             <ListItemButton 
-                            key={`${item}-${ind+1}`}
+                                key={`${item}-${ind+1}`}
                                 component={RouterLink} 
                                 to={`/${item[1].toLowerCase()}`}
                                 sx={{ textDecoration: 'none', color: theme.palette.primary.main, px: { md: 3, lg: 4 }, bg: active ? theme.palette.primary.main : '', '&:hover': { color: hoverColor}, backgroundColor: loc.pathname === `/${item[1].toLowerCase()}` ? alpha(theme.palette.primary.light, .3) : 'none' }} 

@@ -42,7 +42,7 @@ function EditHomeColor() {
                             disabled={!edit}
                         >
             
-                            { homeColorOptions.map(item => <MenuItem value={item} sx={{ textTransform: 'capitalize' }} > {item} </MenuItem>  )}
+                            { homeColorOptions.map(item => <MenuItem value={item} key={item} sx={{ textTransform: 'capitalize' }} > {item} </MenuItem>  )}
                         
                         </Select>
                         <FormHelperText>This will change the home color for all users.</FormHelperText>
